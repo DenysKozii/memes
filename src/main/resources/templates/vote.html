@@ -33,7 +33,13 @@
         </thead>
         <tbody>
         <tr th:each="qv,iter : ${game.getUsers()}">
-            <td th:text="${qv.getSelectedImage()}"></td>
+            <td>
+                <div class="d-flex justify-content-between">
+                    <div class="col-10 alert alert-primary" role="alert">
+                        <img alt="" th:src="@{'data:image/jpeg;base64,'+${qv.getSelectedImage()}}" height="150px">
+                    </div>
+                </div>
+            </td>
             <td>
                 <form th:action="@{/games/vote/{id}(id = ${qv.getId()})}" method="post">
                     <button type="submit" class="btn btn-primary">VOTE</button>

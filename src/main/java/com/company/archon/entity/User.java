@@ -45,8 +45,8 @@ public class User extends BaseEntity implements UserDetails {
 
     private String password;
 
-    @Column(name = "selected_image")
-    private String selectedImage;
+    @Column(name = "image_id")
+    private Integer imageId;
 
     private Integer score = 0;
 

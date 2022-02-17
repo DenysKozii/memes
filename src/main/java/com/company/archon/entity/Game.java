@@ -38,6 +38,8 @@ public class Game extends BaseEntity {
 
     private String text;
 
+    private boolean voted;
+
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "game")

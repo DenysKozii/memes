@@ -13,15 +13,21 @@
     <table class="table table-hover">
         <thead>
         <tr>
-            <th scope="col">Image</th>
-            <th scope="col">SELECT</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="qv,iter : ${game.getCurrent().getImages()}">
-            <td th:text="${qv}"></td>
             <td>
-                <form th:action="@{/games/select/{image}(image = ${qv})}" method="post">
+                <div class="d-flex justify-content-between">
+                    <div class="col-10 alert alert-primary" role="alert">
+                        <img alt="" th:src="@{'data:image/jpeg;base64,'+${qv.getImage()}}" height="150px">
+                    </div>
+                </div>
+            </td>
+            <td>
+                <form th:action="@{/games/select/{imageId}(imageId = ${qv.getId()})}" method="post">
                     <button type="submit" class="btn btn-primary">SELECT</button>
                 </form>
             </td>

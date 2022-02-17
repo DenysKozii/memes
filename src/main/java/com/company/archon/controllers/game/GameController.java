@@ -41,9 +41,9 @@ public class GameController {
         return "game";
     }
 
-    @PostMapping("select/{image}")
-    public String select(@PathVariable String image, Model model) {
-        GameDto game = gameService.select(image);
+    @PostMapping("select/{imageId}")
+    public String select(@PathVariable Integer imageId, Model model) {
+        GameDto game = gameService.select(imageId);
         model.addAttribute("game", game);
         return "vote";
     }

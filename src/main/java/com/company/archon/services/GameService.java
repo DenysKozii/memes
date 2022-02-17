@@ -10,7 +10,7 @@ public interface GameService {
 
     GameDto play();
 
-    GameDto select(String image);
+    GameDto select(Integer imageId);
 
     GameDto vote(Long id);
 }
