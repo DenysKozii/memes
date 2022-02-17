@@ -41,7 +41,7 @@ public class GameController {
         return "game";
     }
 
-    @PostMapping("select/{imageId}")
+    @GetMapping("select/{imageId}")
     public String select(@PathVariable Integer imageId, Model model) {
         GameDto game = gameService.select(imageId);
         model.addAttribute("game", game);
