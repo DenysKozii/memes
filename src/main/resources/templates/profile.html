@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{common :: header(value='Profile')}"></div>
+<div th:replace="~{common :: navbar(game=false)}"></div>
+<body>
+<div class="bg-light">
+    <div class="container bg-light">
+        <h3><small th:text="${id}"></small></h3>
+    </div>
+    <form method="post" th:action="@{games/start}">
+        <div class="col-sm-8">
+            <button type="submit" class="btn btn-primary">Start new game</button>
+        </div>
+    </form>
+</div>
+</body>
+<div th:replace="~{common :: js-lb}"></div>
+</html>

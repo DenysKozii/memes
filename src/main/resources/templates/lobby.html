@@ -1,0 +1,33 @@
+    <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{common :: header(value='Game')}"></div>
+<div th:replace="~{common :: navbar(game=true)}"></div>
+<body class="bg-light">
+<div class="container">
+    
+    <form method="post" class="form-signin mx-5" th:action="@{/games/invite}">
+        <label for="id" class="sr-only">Id</label>
+        <input id="id" name="id" class="my-2 form-control" placeholder="id"
+               required autofocus>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Invite</button>
+    </form>
+    
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="qv,iter : ${game.getUsers()}">
+            <td th:text="${qv.getId()}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/games/play}" class="btn btn-primary">
+        <span>Play</span>
+    </a>
+</div>
+</body>
+<div th:replace="~{common :: js-lb}"></div>
+</html>

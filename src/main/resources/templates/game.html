@@ -1,0 +1,34 @@
+    <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{common :: header(value='Game')}"></div>
+<div th:replace="~{common :: navbar(game=true)}"></div>
+<body class="bg-light">
+<div class="container">
+    
+    <div>
+        <h1><small th:text="${game.getText()}"></small></h1>
+        <p></p>
+    </div>
+    
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Image</th>
+            <th scope="col">SELECT</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="qv,iter : ${game.getCurrent().getImages()}">
+            <td th:text="${qv}"></td>
+            <td>
+                <form th:action="@{/games/select/{image}(image = ${qv})}" method="post">
+                    <button type="submit" class="btn btn-primary">SELECT</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+<div th:replace="~{common :: js-lb}"></div>
+</html>
