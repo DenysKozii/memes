@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:replace="~{common :: header(value='Game')}"></div>
 <div th:replace="~{common :: navbar(game=true)}"></div>
@@ -7,6 +7,7 @@
     <table class="table table-hover">
         <thead>
         <tr>
+            <h1><small th:text="${game.isVoted()}"></small></h1>
             <th scope="col">Username</th>
             <th scope="col">Score</th>
         </tr>
@@ -18,12 +19,12 @@
         </tr>
         </tbody>
     </table>
-    
+
     <div>
         <h1><small th:text="${game.getText()}"></small></h1>
         <p></p>
     </div>
-    
+
     <table class="table table-hover">
         <thead>
         <tr>
@@ -50,9 +51,9 @@
     </table>
 </div>
 <script type="text/javascript">
-    setTimeout(function (){
+    setTimeout(function () {
         location = ''
-    }, 500)
+    }, 2000)
 </script>
 </body>
 <div th:replace="~{common :: js-lb}"></div>

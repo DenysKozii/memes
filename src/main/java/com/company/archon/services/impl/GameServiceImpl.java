@@ -48,6 +48,9 @@ public class GameServiceImpl implements GameService {
         questions.add("Когда учишься на программиста но не понял какй-то мем о программировании");
         questions.add("Папа настолько круто играет в прятки, что ты не можешь найти его уже 20 лет");
         questions.add("Нельзя просто так взять и стать интернет-мемом");
+        questions.add("Я, когда нужно тратить деньги");
+        questions.add("Когда увидел что сводная сестра застряла в машинке");
+        questions.add("Когда читаешь мем со словом когда");
         questions.add("Когда дропнул продовскую бд");
     }
 
@@ -106,6 +109,7 @@ public class GameServiceImpl implements GameService {
         user.setImageId(imageId);
         userRepository.save(user);
         game.setVoted(false);
+//        game.setCounter(game.getCounter() + 1);
         gameRepository.save(game);
         return setImages(game);
     }
@@ -143,20 +147,22 @@ public class GameServiceImpl implements GameService {
     private GameDto getGameDto(User user, Game game) {
         GameDto gameDto = GameMapper.INSTANCE.mapToDto(game);
         UserDto current = UserMapper.INSTANCE.mapToDto(user);
-        List<Integer> ids = IntStream.rangeClosed(0, 6)
+        List<Integer> ids = IntStream.rangeClosed(0, 7)
                 .boxed().collect(Collectors.toList());
         Collections.shuffle(ids);
         int id1 = ids.get(0);
         int id2 = ids.get(2);
         int id3 = ids.get(3);
         int id4 = ids.get(4);
-        int id5 = ids.get(5);
         current.getImages().add(new ImageDto(id1, readeImage(id1)));
         current.getImages().add(new ImageDto(id2, readeImage(id2)));
         current.getImages().add(new ImageDto(id3, readeImage(id3)));
         current.getImages().add(new ImageDto(id4, readeImage(id4)));
-        current.getImages().add(new ImageDto(id5, readeImage(id5)));
         gameDto.setCurrent(current);
+//        if (game.getCounter() == game.getUsers().size()){
+//            game.setCounter(0);
+//            gameDto.setSelected(true);
+//        }
         return gameDto;
     }
 
