@@ -50,6 +50,8 @@ public class User extends BaseEntity implements UserDetails {
 
     private Integer score = 0;
 
+    private Integer counter = 0;
+
     @NonNull
     @ToString.Exclude
     @EqualsAndHashCode.Exclude

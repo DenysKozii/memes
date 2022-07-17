@@ -27,7 +27,7 @@
                 </div>
             </td>
             <td>
-                <form th:action="@{/games/select/{imageId}(imageId = ${qv.getId()})}" method="get">
+                <form th:action="@{/games/select/{counter}/{imageId}(counter = ${game.getCounter()}, imageId = ${qv.getId()})}" method="get">
                     <button type="submit" class="btn btn-primary">SELECT</button>
                 </form>
             </td>

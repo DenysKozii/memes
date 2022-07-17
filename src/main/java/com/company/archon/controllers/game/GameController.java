@@ -41,9 +41,15 @@ public class GameController {
         return "game";
     }
 
-    @GetMapping("select/{imageId}")
-    public String select(@PathVariable Integer imageId, Model model) {
-        GameDto game = gameService.select(imageId);
+    @GetMapping("select/{counter}/{imageId}")
+    public String select(@PathVariable Integer counter, @PathVariable Integer imageId, Model model) {
+        GameDto game = gameService.select(counter, imageId);
+        return "redirect:/games/list";
+    }
+
+    @GetMapping("list")
+    public String voteList(Model model) {
+        GameDto game = gameService.info();
         model.addAttribute("game", game);
         return "vote";
     }

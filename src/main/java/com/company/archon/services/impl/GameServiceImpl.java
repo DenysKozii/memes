@@ -13,17 +13,23 @@ import com.company.archon.repositories.GameRepository;
 import com.company.archon.repositories.UserRepository;
 import com.company.archon.services.AuthorizationService;
 import com.company.archon.services.GameService;
-import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+
 import org.apache.commons.io.FileUtils;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.Base64;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -101,20 +107,31 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public GameDto select(Integer imageId) {
+    public GameDto select(Integer counter, Integer imageId) {
         Long currentId = authorizationService.getProfileOfCurrent().getId();
         User user = userRepository.findById(currentId)
-                .orElseThrow(() -> new EntityNotFoundException("User with id " + currentId + " doesn't exists!"));
+                                  .orElseThrow(() -> new EntityNotFoundException("User with id " + currentId + " doesn't exists!"));
         Game game = user.getGame();
         user.setImageId(imageId);
+        user.setCounter(user.getCounter() + 1);
         userRepository.save(user);
-        game.setVoted(false);
-//        game.setCounter(game.getCounter() + 1);
+//        if (counter.equals(game.getCounter())) {
+            game.setCounter(game.getCounter() + 1);
+//        }
         gameRepository.save(game);
-        return setImages(game);
+        return setImages(game, user);
     }
 
-    private GameDto setImages(Game game) {
+    @Override
+    public GameDto info() {
+        Long currentId = authorizationService.getProfileOfCurrent().getId();
+        User user = userRepository.findById(currentId)
+                                  .orElseThrow(() -> new EntityNotFoundException("User with id " + currentId + " doesn't exists!"));
+        Game game = user.getGame();
+        return setImages(game, user);
+    }
+
+    private GameDto setImages(Game game, User current) {
         Set<User> users = userRepository.findAllByGame(game);
         GameDto gameDto = GameMapper.INSTANCE.mapToDto(game);
         gameDto.setUsers(new HashSet<>());
@@ -125,6 +142,9 @@ public class GameServiceImpl implements GameService {
                 gameDto.getUsers().add(userDto);
             }
         }
+        UserDto currentDto = UserMapper.INSTANCE.mapToDto(current);
+        gameDto.setCurrent(currentDto);
+        gameDto.setVoted(game.getCounter() % users.size() == 0);
         return gameDto;
     }
 

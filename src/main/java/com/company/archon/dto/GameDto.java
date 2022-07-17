@@ -26,8 +26,10 @@ public class GameDto extends BaseDto {
 
     private String text;
 
-//    private boolean selected;
-//
+    private Integer counter;
+
+    private boolean voted;
+
     private Set<UserDto> users;
 
     private UserDto current;

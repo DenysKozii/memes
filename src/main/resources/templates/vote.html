@@ -41,9 +41,11 @@
                 </div>
             </td>
             <td>
-                <form th:action="@{/games/vote/{id}(id = ${qv.getId()})}" method="post">
-                    <button type="submit" class="btn btn-primary">VOTE</button>
-                </form>
+                <div th:if="${game.isVoted()}">
+                    <form th:action="@{/games/vote/{id}(id = ${qv.getId()})}" method="post">
+                        <button type="submit" class="btn btn-primary">VOTE</button>
+                    </form>
+                </div>
             </td>
         </tr>
         </tbody>
@@ -52,7 +54,7 @@
 <script type="text/javascript">
     setTimeout(function () {
         location = ''
-    }, 2000)
+    }, 5000)
 </script>
 </body>
 <div th:replace="~{common :: js-lb}"></div>

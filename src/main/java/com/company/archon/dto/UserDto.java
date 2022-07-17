@@ -22,6 +22,8 @@ public class UserDto extends BaseDto {
 
     private Integer score;
 
+    private Integer counter;
+
     private List<ImageDto> images = new ArrayList<>();
 
 }
